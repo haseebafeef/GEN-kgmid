@@ -5,9 +5,11 @@ interface ConfigurationFormProps {
     setApiKeys: Dispatch<SetStateAction<string[]>>;
     projectId: string;
     setProjectId: Dispatch<SetStateAction<string>>;
+    strictMode: boolean;
+    setStrictMode: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId }: ConfigurationFormProps) {
+export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId, strictMode, setStrictMode }: ConfigurationFormProps) {
     const addKey = () => {
         if (apiKeys.length < 10) {
             setApiKeys([...apiKeys, ""]);
@@ -77,6 +79,21 @@ export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId
                         className="w-full bg-black/50 border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder-gray-600"
                     />
                     <p className="text-xs text-gray-500 mt-1">Required for Enterprise Basic Edition API.</p>
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                    <div className="flex items-center h-5">
+                        <input
+                            id="strictMode"
+                            type="checkbox"
+                            checked={strictMode}
+                            onChange={(e) => setStrictMode(e.target.checked)}
+                            className="w-4 h-4 text-blue-600 bg-black/50 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+                        />
+                    </div>
+                    <div className="ml-2 text-sm">
+                        <label htmlFor="strictMode" className="font-medium text-gray-300">Enable Strict Double Verification</label>
+                        <p className="text-xs text-gray-500"> Checks if Label Search matches QID Search. Slower but more accurate.</p>
+                    </div>
                 </div>
             </div>
         </div>

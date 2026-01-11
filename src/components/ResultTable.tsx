@@ -49,6 +49,7 @@ export function ResultTable({ items, resultContentP646, resultContentP2671 }: Re
                             <th className="px-4 py-3">Label</th>
                             <th className="px-4 py-3">Found ID</th>
                             <th className="px-4 py-3">Type</th>
+                            <th className="px-4 py-3">KG Description</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-800">
@@ -71,6 +72,9 @@ export function ResultTable({ items, resultContentP646, resultContentP2671 }: Re
                                             {item.kgType}
                                         </span>
                                     ) : ""}
+                                </td>
+                                <td className="px-4 py-2 text-gray-400 text-xs max-w-xs truncate" title={item.kgDescription}>
+                                    {item.kgDescription || "-"}
                                 </td>
                             </tr>
                         ))}

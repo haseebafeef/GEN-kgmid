@@ -4,6 +4,7 @@ export interface WikidataItem {
     originalUrl: string;
     kgId?: string; // The found Google Knowledge Graph ID (or Freebase ID)
     kgType?: "P2671" | "P646"; // The type of ID found
+    kgDescription?: string; // Description from Google KG for verification
     error?: string; // Error message if search failed
 }
 

@@ -19,9 +19,15 @@ interface KGResponse {
     }>;
 }
 
-export type KGSearchResponse = { id: string; type: "P2671" | "P646" } | null;
+export type KGSearchResponse = {
+    id: string;
+    type: "P2671" | "P646";
+    description: string;
+    url?: string;
+} | null;
 
-export async function searchGoogleKGAction(query: string, apiKey: string, projectId?: string): Promise<KGSearchResponse> {
+// Helper to perform a single fetch
+async function fetchKGResult(query: string, apiKey: string, projectId?: string): Promise<KGSearchResponse | null> {
     if (!query || !apiKey) return null;
 
     try {
@@ -34,25 +40,13 @@ export async function searchGoogleKGAction(query: string, apiKey: string, projec
 
         const response = await fetch(url, {
             cache: 'no-store',
-            headers: {
-                'User-Agent': 'WikidataAutomationTool/1.0'
-            }
+            headers: { 'User-Agent': 'WikidataAutomationTool/1.0' }
         });
 
         if (!response.ok) {
-            console.error(`KG API Error: ${response.status} ${response.statusText}`);
-            const text = await response.text();
-            console.error("Body:", text);
-            // Try to parse JSON error if possible
-            try {
-                const errJson = JSON.parse(text);
-                if (errJson.error && errJson.error.message) {
-                    throw new Error(errJson.error.message);
-                }
-            } catch (e) {
-                // ignore json parse error
-            }
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            // Log error but don't throw to avoid crashing the whole Promise.all chain if one request fails gently
+            // console.error(`KG API Error: ${response.status} ${response.statusText}`); 
+            return null;
         }
 
         const data: KGResponse = await response.json();
@@ -60,23 +54,47 @@ export async function searchGoogleKGAction(query: string, apiKey: string, projec
         if (data.itemListElement && data.itemListElement.length > 0) {
             const result = data.itemListElement[0].result;
             const rawId = result["@id"];
+            const description = result.description || result.detailedDescription?.articleBody || "No description found";
 
             const cleanId = rawId.replace(/^kg:/, "");
+            const responseObj = { id: cleanId, description };
 
             if (cleanId.startsWith("/m/")) {
-                return { id: cleanId, type: "P646" };
+                return { ...responseObj, type: "P646" };
             } else if (cleanId.startsWith("/g/")) {
-                return { id: cleanId, type: "P2671" };
+                return { ...responseObj, type: "P2671" };
             } else {
-                return { id: cleanId, type: "P2671" };
+                return { ...responseObj, type: "P2671" };
             }
         }
-
         return null;
     } catch (error) {
         console.error("Error searching KG:", error);
-        // Rethrow to let the client know something went wrong? Or just return null.
-        // For now, let's just log and return null, but maybe better to propagate error message?
-        throw error;
+        return null;
     }
+}
+
+export async function searchGoogleKGAction(label: string, apiKey: string, projectId: string = "", qid: string = "", strictMode: boolean = false): Promise<KGSearchResponse> {
+    // 1. Search by Human Label
+    const labelResult = await fetchKGResult(label, apiKey, projectId);
+
+    if (!labelResult) return null;
+
+    // 2. If Strict Mode is ON and QID is provided, perform strict "Double Verification"
+    if (strictMode && qid) {
+        // Small delay to prevent hitting rate limits too hard with the second request immediately
+        // await new Promise(r => setTimeout(r, 50)); 
+
+        const qidResult = await fetchKGResult(qid, apiKey, projectId);
+
+        // Strict Match: The ID found via Label MUST match the ID found via QID
+        if (qidResult && qidResult.id === labelResult.id) {
+            return labelResult;
+        } else {
+            return null; // Mismatch or QID search failed -> Reject match in strict mode
+        }
+    }
+
+    // Fallback if no QID provided or Strict Mode is OFF
+    return labelResult;
 }

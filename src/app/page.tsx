@@ -10,6 +10,7 @@ import { ResultTable } from "@/components/ResultTable";
 export default function Home() {
     const [apiKeys, setApiKeys] = useState<string[]>([""]);
     const [projectId, setProjectId] = useState("");
+    const [strictMode, setStrictMode] = useState(false);
     const [items, setItems] = useState<WikidataItem[]>([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -59,10 +60,16 @@ export default function Home() {
                 const item = newItems[i];
                 try {
                     // Small delay to prevent burst issues even with multiple keys
+                    // Small delay to prevent burst issues
                     await new Promise(r => setTimeout(r, 100));
-                    const result = await searchGoogleKGAction(item.label, key, projectId);
+                    const result = await searchGoogleKGAction(item.label, key, projectId, item.qid, strictMode);
                     if (result) {
-                        newItems[i] = { ...item, kgId: result.id, kgType: result.type };
+                        newItems[i] = {
+                            ...item,
+                            kgId: result.id,
+                            kgType: result.type,
+                            kgDescription: result.description
+                        };
                     }
                 } catch (e: any) {
                     console.error("Error processing item", item.label, key, e);
@@ -73,8 +80,9 @@ export default function Home() {
                 setProcessedCount(processed);
                 setProgress(Math.round((processed / newItems.length) * 100));
 
-                // Update state occasionally
-                if (processed % 5 === 0 || processed === newItems.length) {
+                // Update state occasionally (Less frequent updates to prevent lag on large datasets)
+                // Updating every 50 items instead of 5
+                if (processed % 50 === 0 || processed === newItems.length) {
                     setItems([...newItems]);
                 }
             }
@@ -119,6 +127,8 @@ export default function Home() {
                         setApiKeys={setApiKeys}
                         projectId={projectId}
                         setProjectId={setProjectId}
+                        strictMode={strictMode}
+                        setStrictMode={setStrictMode}
                     />
                     <FileUploader
                         onUpload={handleFileUpload}
