@@ -1,52 +1,85 @@
-# Google Knowledge Graph ID Finder
+# 🏰 Google Knowledge Graph ID Finder (GenKGmid)
 
-**Live Demo:** [https://gen-kgmid.vercel.app/](https://gen-kgmid.vercel.app/)
+> **Automate the linking of Google Knowledge Graph IDs (P2671) and Freebase IDs (P646) to Wikidata items using QuickStatements.**
 
-A high-performance automated tool designed to bridge the gap between **Wikidata** and the **Google Knowledge Graph**. It efficiently retrieves Knowledge Graph IDs (`/g/...`) and Freebase IDs (`/m/...`) for mass Wikidata items, generating ready-to-use **QuickStatements** files for batch editing.
+![Project Banner](public/assets/logo.png)
 
-![Google Knowledge Graph ID Finder](preview.png)
+## 🌟 Features
 
-## 🚀 Key Features
+*   **⚡ High-Speed ID Finding**: Uses the Google Knowledge Graph API to verify items in parallel.
+*   **🔎 Smart Matching**: Automatically reconciles Wikidata labels with Google KG entities to ensure high accuracy.
+*   **🛡️ Strict Verification Mode**: Optional double-check mode that verifies if the returned entity's name strictly matches the search query.
+*   **📂 Bulk Processing**: Upload standard Wikidata JSON export files containing thousands of items.
+*   **🎨 Vibrant UI**: A beautiful, immersive interface featuring dynamic backgrounds from Wikimedia Commons.
+*   **📋 QuickStatements Ready**: Generates pre-formatted CSV/Text files ready to be pasted directly into [QuickStatements](https://quickstatements.toolforge.org/).
 
-*   **⚡ Parallel Processing**: Built with a concurrent worker pool to handle thousands of items efficiently using multiple API keys.
-*   **🧠 Smart ID Detection**: Automatically distinguishes between:
-    *   **P2671**: Google Knowledge Graph ID (e.g., `/g/123...`)
-    *   **P646**: Freebase ID (e.g., `/m/0abc...`)
-*   **📄 QuickStatements Ready**: Generates properly formatted CSV files (`qid,"""value"""`) that can be directly copied into [QuickStatements](https://quickstatements.toolforge.org/).
-*   **🛠️ Dynamic Configuration**: Add multiple API keys on the fly to bypass rate limits.
-*   **🔍 Auto-Search**: Seamlessly integrates with Google's Knowledge Graph Search API.
+## 🚀 Getting Started
 
-## 🛠️ Tech Stack
+### Prerequisites
 
-*   **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/) with a glassmorphism UI.
-*   **Deployment**: Vercel
+*   Node.js 18+
+*   A Google Cloud Project with the **Knowledge Graph Search API** enabled.
+*   An API Key from Google Cloud Console.
 
-## 📦 Setup & Installation
+### Installation
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/haseebafeef/GEN-kgmid.git
-cd GEN-kgmid
-```
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/haseebafeef/GENkgmid.git
+    cd GENkgmid
+    ```
 
-### 2. Install Dependencies
-```bash
-npm install
-```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-### 3. Run Locally
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3.  **Run the development server**:
+    ```bash
+    npm run dev
+    ```
 
-## 🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+4.  **Open in Browser**:
+    Visit `http://localhost:3000` to see the app.
+
+## 📖 How to Use
+
+1.  **Prepare your Wikidata Query**:
+    *   Go to [Wikidata Query Service](https://query.wikidata.org/).
+    *   Write a query that selects the item URL (as `human`) and the label (as `humanLabel`).
+    *   Example:
+        ```sparql
+        SELECT ?human ?humanLabel WHERE {
+          ?human wdt:P31 wd:Q5.
+          LIMIT 10
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+        }
+        ```
+    *   Download the result as **JSON**.
+
+2.  **Configure API Keys**:
+    *   In the app, enter your Google Cloud API Key.
+    *   (Optional) Add multiple keys to rotate them and increase rate limits.
+
+3.  **Upload & Process**:
+    *   Drag and drop your JSON file into the "Data Input" section.
+    *   Click **Start Automation**.
+
+4.  **Download Results**:
+    *   Once finished, click **Download P646** or **Download P2671**.
+    *   Copy the content into [QuickStatements V1](https://quickstatements.toolforge.org/#/batch) to apply edits to Wikidata.
+
+## 🛠️ Built With
+
+*   [Next.js 14](https://nextjs.org/) - React Framework
+*   [Tailwind CSS](https://tailwindcss.com/) - Styling
+*   [Framer Motion](https://www.framer.com/motion/) - Animations (Implicit in transitions)
+*   [Google Knowledge Graph API](https://developers.google.com/knowledge-graph/)
 
 ## 📄 License
-This project is open source and available under the [MIT License](LICENSE).
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-Designed & Developed with ♥ by [Haseeb](https://github.com/haseebafeef)
+
+<p align="center">Made with ♥ by Haseeb</p>

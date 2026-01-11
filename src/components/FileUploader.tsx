@@ -23,11 +23,13 @@ export function FileUploader({ onUpload, fileName, itemCount }: FileUploaderProp
     };
 
     return (
-        <div className="p-6 rounded-xl bg-black/20 border border-white/10 flex flex-col justify-center">
-            <h2 className="text-xl font-semibold mb-4 text-purple-300">Data Input</h2>
+        <div className="p-6 rounded-xl bg-slate-950/40 border border-white/10 backdrop-blur-sm flex flex-col justify-center shadow-xl shadow-black/20">
+            <h2 className="text-xl font-bold mb-4 text-indigo-300 flex items-center gap-2">
+                <span className="text-lg">📂</span> Data Input
+            </h2>
             <div
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full h-32 border-2 border-dashed border-gray-600 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 hover:bg-white/5 transition-all group"
+                className="w-full h-32 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-indigo-400/50 hover:bg-indigo-500/5 transition-all duration-300 group"
             >
                 <input
                     type="file"
@@ -38,19 +40,19 @@ export function FileUploader({ onUpload, fileName, itemCount }: FileUploaderProp
                 />
                 {fileName ? (
                     <div className="text-center">
-                        <p className="text-green-400 font-medium">{fileName}</p>
-                        <p className="text-xs text-gray-500">{itemCount} items loaded</p>
+                        <p className="text-green-400 font-bold drop-shadow-sm font-mono text-sm">{fileName}</p>
+                        <p className="text-xs text-slate-400 mt-1">{itemCount} items loaded</p>
                     </div>
                 ) : (
-                    <div className="text-center text-gray-400 group-hover:text-purple-300 transition-colors">
-                        <p className="font-medium">Upload JSON File</p>
-                        <p className="text-xs mt-1">Click or drag file here</p>
+                    <div className="text-center text-slate-400/60 group-hover:text-slate-300 transition-colors">
+                        <p className="font-medium text-lg">Upload JSON File</p>
+                        <p className="text-xs mt-1 opacity-70">Click or drag file here</p>
                     </div>
                 )}
             </div>
-            <div className="mt-4 p-3 bg-white/5 rounded-lg text-xs text-gray-400 font-mono">
-                <p className="mb-1 text-gray-300 font-semibold">Expected Format:</p>
-                <p>{`[{"human": "http://.../Q123", "humanLabel": "Name"}]`}</p>
+            <div className="mt-4 p-3 bg-black/40 rounded-lg text-xs text-gray-300 font-mono border border-white/10 shadow-inner">
+                <p className="mb-1 text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Expected Format:</p>
+                <p className="text-gray-500 break-all">{`[{"human": "http://.../Q123", "humanLabel": "Name"}]`}</p>
             </div>
         </div>
     );

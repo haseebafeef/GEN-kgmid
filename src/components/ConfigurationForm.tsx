@@ -30,13 +30,15 @@ export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId
     };
 
     return (
-        <div className="p-6 rounded-xl bg-black/20 border border-white/10">
-            <h2 className="text-xl font-semibold mb-4 text-blue-300">Configuration</h2>
+        <div className="p-6 rounded-xl bg-slate-950/40 border border-white/10 backdrop-blur-sm shadow-xl shadow-black/20">
+            <h2 className="text-xl font-bold mb-4 text-indigo-300 flex items-center gap-2">
+                <span className="text-lg">⚙️</span> Configuration
+            </h2>
             <div className="space-y-4">
                 <div>
                     <div className="flex justify-between items-center mb-2">
-                        <label className="text-sm text-gray-400">Google Cloud API Keys</label>
-                        <span className="text-xs text-gray-500">{apiKeys.length}/10 keys</span>
+                        <label className="text-sm font-medium text-slate-300">Google Cloud API Keys</label>
+                        <span className="text-xs text-slate-500">{apiKeys.length}/10 keys</span>
                     </div>
                     <div className="space-y-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
                         {apiKeys.map((key, index) => (
@@ -46,12 +48,12 @@ export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId
                                     value={key}
                                     onChange={(e) => updateKey(index, e.target.value)}
                                     placeholder={`API Key #${index + 1}`}
-                                    className="flex-1 bg-black/50 border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder-gray-600 text-sm"
+                                    className="flex-1 bg-black/40 border border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all placeholder-gray-600 text-sm text-gray-200"
                                 />
                                 {apiKeys.length > 1 && (
                                     <button
                                         onClick={() => removeKey(index)}
-                                        className="px-3 py-2 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg transition-colors border border-red-900/50"
+                                        className="px-3 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-lg transition-colors border border-red-500/20"
                                         title="Remove Key"
                                     >
                                         ✕
@@ -63,36 +65,36 @@ export function ConfigurationForm({ apiKeys, setApiKeys, projectId, setProjectId
                     {apiKeys.length < 10 && (
                         <button
                             onClick={addKey}
-                            className="mt-2 text-xs flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors"
+                            className="mt-2 text-xs flex items-center gap-1 text-indigo-400 hover:text-indigo-300 transition-colors font-medium border border-indigo-500/20 px-2 py-1 rounded hover:bg-indigo-500/10"
                         >
                             + Add another API Key
                         </button>
                     )}
                 </div>
                 <div>
-                    <label className="block text-sm text-gray-400 mb-1">Project ID (Optional)</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Project ID (Optional)</label>
                     <input
                         type="text"
                         value={projectId}
                         onChange={(e) => setProjectId(e.target.value)}
                         placeholder="e.g. my-project-123"
-                        className="w-full bg-black/50 border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder-gray-600"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all placeholder-gray-600 text-gray-200"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Required for Enterprise Basic Edition API.</p>
+                    <p className="text-xs text-slate-500 mt-1">Required for Enterprise Basic Edition API.</p>
                 </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div className="flex items-center gap-3 pt-4 border-t border-white/5">
                     <div className="flex items-center h-5">
                         <input
                             id="strictMode"
                             type="checkbox"
                             checked={strictMode}
                             onChange={(e) => setStrictMode(e.target.checked)}
-                            className="w-4 h-4 text-blue-600 bg-black/50 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+                            className="w-4 h-4 text-indigo-500 bg-black/50 border-gray-600 rounded focus:ring-indigo-400 focus:ring-2 accent-indigo-500 cursor-pointer"
                         />
                     </div>
                     <div className="ml-2 text-sm">
-                        <label htmlFor="strictMode" className="font-medium text-gray-300">Enable Strict Double Verification</label>
-                        <p className="text-xs text-gray-500"> Checks if Label Search matches QID Search. Slower but more accurate.</p>
+                        <label htmlFor="strictMode" className="font-medium text-slate-300 cursor-pointer select-none">Enable Strict Double Verification</label>
+                        <p className="text-xs text-slate-500"> Checks if Label Search matches QID Search. Slower but more accurate.</p>
                     </div>
                 </div>
             </div>
