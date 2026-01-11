@@ -92,10 +92,22 @@ export default function Home() {
     // Removed old downloadResults function as it's now in ResultTable
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-            <div className="z-10 w-full max-w-4xl p-8 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl">
+        <main className="flex min-h-screen flex-col items-center p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative">
+            {/* Navbar */}
+            <nav className="w-full max-w-6xl flex flex-wrap justify-between items-center mb-12 p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+                <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                    GenKGmid
+                </div>
+                <div className="flex gap-6 text-sm text-gray-300">
+                    <a href="https://www.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">Wikidata</a>
+                    <a href="https://query.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">Query Service</a>
+                    <a href="https://quickstatements.toolforge.org/" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 transition-colors">QuickStatements</a>
+                </div>
+            </nav>
+
+            <div className="z-10 w-full max-w-4xl p-8 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl mb-12">
                 <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 mb-2">
-                    Wikidata Automation Tool
+                    Google Knowledge Graph ID Finder
                 </h1>
                 <p className="text-gray-300 mb-8">
                     Automate Google Knowledge Graph ID linking for QuickStatements.
@@ -150,6 +162,30 @@ export default function Home() {
                     resultContentP2671={resultContentP2671}
                 />
             </div>
+
+            {/* About Section */}
+            <div className="w-full max-w-4xl p-8 bg-black/20 border border-white/10 rounded-2xl mb-12 text-gray-300">
+                <h2 className="text-2xl font-bold text-white mb-4">How it works</h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 className="text-lg font-semibold text-blue-400 mb-2">1. Input</h3>
+                        <p className="text-sm">Upload a JSON file from a Wikidata Query containing <code>humanLabel</code>. Provide your Google Cloud API Keys.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold text-purple-400 mb-2">2. Process</h3>
+                        <p className="text-sm">The tool queries the Google Knowledge Graph API in parallel for each item to find matching Freebase (P646) or Knowledge Graph (P2671) IDs.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold text-green-400 mb-2">3. Output</h3>
+                        <p className="text-sm">Download pre-formatted CSV files ready to be copied directly into QuickStatements for mass batch updates.</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <footer className="text-gray-500 text-sm font-medium py-4">
+                Designed & Developed with <span className="text-red-500">♥</span> by <a href="https://github.com/haseebafeef" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Haseeb</a>
+            </footer>
         </main>
     );
 }
