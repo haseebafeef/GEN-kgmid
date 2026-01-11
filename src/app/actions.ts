@@ -114,10 +114,7 @@ export async function fetchRandomBackgroundAction(): Promise<BackgroundImage | n
         const categories = [
             "Category:Featured_pictures_of_castles_in_Germany",
             "Category:Featured_pictures_of_castles_in_France",
-            "Category:Featured_pictures_of_castles_in_the_United_Kingdom",
             "Category:Featured_pictures_of_castles_in_Spain",
-            "Category:Featured_pictures_of_castles_in_Japan",
-            "Category:Featured_pictures_of_fortifications",
             "Category:Featured_pictures_of_lighthouses",
             "Category:Featured_pictures_of_towers"
         ];
@@ -139,7 +136,7 @@ export async function fetchRandomBackgroundAction(): Promise<BackgroundImage | n
 
         const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params.toString()}`, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (compatible; GenKGmid/1.0; +https://github.com/haseebafeef)'
+                'User-Agent': 'Mozilla/5.0 (compatible; GenKgMID/1.0; +https://github.com/haseebafeef)'
             },
             next: { revalidate: 0 } // No cache for random images
         });

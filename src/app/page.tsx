@@ -177,7 +177,7 @@ export default function Home() {
                             <Link href="/" className="hover:opacity-80 transition-opacity">
                                 <img
                                     src="/assets/logo.png"
-                                    alt="GenKGmid Logo"
+                                    alt="GenKgMID Logo"
                                     className="h-12 w-auto bg-white rounded-lg p-1 shadow-lg shadow-purple-500/20"
                                 />
                             </Link>

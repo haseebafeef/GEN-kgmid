@@ -1,4 +1,4 @@
-# 🏰 Google Knowledge Graph ID Finder (GenKGmid)
+# 🏰 Google Knowledge Graph ID Finder (GenKgMID)
 
 > **Automate the linking of Google Knowledge Graph IDs (P2671) and Freebase IDs (P646) to Wikidata items using QuickStatements.**
 
@@ -25,8 +25,8 @@
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/haseebafeef/GENkgmid.git
-    cd GENkgmid
+    git clone https://github.com/haseebafeef/GEN-kgmid.git
+    cd GEN-kgmid
     ```
 
 2.  **Install dependencies**:
@@ -67,7 +67,7 @@
 
 4.  **Download Results**:
     *   Once finished, click **Download P646** or **Download P2671**.
-    *   Copy the content into [QuickStatements V1](https://quickstatements.toolforge.org/#/batch) to apply edits to Wikidata.
+    *   Copy the content into [QuickStatements V2](https://quickstatements.toolforge.org/#/batch) to apply edits to Wikidata.
 
 ## 🛠️ Built With
 
