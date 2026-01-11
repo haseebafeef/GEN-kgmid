@@ -192,16 +192,16 @@ export default function Home() {
                             </a>
                         </div>
                         <div className="flex gap-6 text-sm text-gray-200 font-medium">
-                            <a href="https://www.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors flex items-center gap-2 drop-shadow-md" aria-label="Visit Wikidata">
-                                <img src="/assets/wikidata.svg" alt="Wikidata" className="w-6 h-6 drop-shadow-md" />
+                            <a href="https://www.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors flex items-center gap-2 drop-shadow-md">
+                                <img src="/assets/wikidata.svg" alt="" className="w-6 h-6 drop-shadow-md" />
                                 Wikidata
                             </a>
-                            <a href="https://query.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-green-300 transition-colors flex items-center gap-2 drop-shadow-md" aria-label="Visit Wikidata Query Service">
-                                <img src="/assets/query-service.svg" alt="Query Service" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                            <a href="https://query.wikidata.org/" target="_blank" rel="noopener noreferrer" className="hover:text-green-300 transition-colors flex items-center gap-2 drop-shadow-md">
+                                <img src="/assets/query-service.svg" alt="" className="w-5 h-5 bg-white rounded-full p-0.5" />
                                 Query Service
                             </a>
-                            <a href="https://quickstatements.toolforge.org/" target="_blank" rel="noopener noreferrer" className="hover:text-red-300 transition-colors flex items-center gap-2 drop-shadow-md" aria-label="Visit QuickStatements">
-                                <img src="/assets/quickstatements.svg" alt="QuickStatements" className="w-6 h-6" />
+                            <a href="https://quickstatements.toolforge.org/" target="_blank" rel="noopener noreferrer" className="hover:text-red-300 transition-colors flex items-center gap-2 drop-shadow-md">
+                                <img src="/assets/quickstatements.svg" alt="" className="w-6 h-6" />
                                 QuickStatements
                             </a>
                         </div>
@@ -305,7 +305,7 @@ export default function Home() {
                 </section>
 
                 {/* Footer */}
-                <footer className="text-gray-500 text-sm font-medium py-4 z-10">
+                <footer className="text-slate-400 text-sm font-medium py-4 z-10">
                     Designed & Developed with <span className="text-red-500">♥</span> by <a href="https://github.com/haseebafeef" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Haseeb</a>
                 </footer>
             </div>
