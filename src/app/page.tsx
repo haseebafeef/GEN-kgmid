@@ -182,7 +182,7 @@ export default function Home() {
                                 />
                             </Link>
                             <a
-                                href="https://github.com/haseebafeef/GENkgmid"
+                                href="https://github.com/haseebafeef/GEN-kgmid"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 hover:border-indigo-500/40 rounded-lg transition-all group"
